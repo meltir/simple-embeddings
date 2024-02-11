@@ -6,6 +6,21 @@ The application will download the default model ('sentence-transformers/all-mpne
 The app has been written by someone new to pyton and wanting to play around with sbert. Blame chatgpt, it wrote like half of this.  
 This is not production ready, though I will be turning it into a public docker container.   
 
+The purpose of this project is not to build a versatile docker image that can perform this task in a hostile environment.  
+It's purpose is to provide a quick turn key solution which can be used to experiment with if you dont want to dive into python and sentence transformers.  
+
+@todo:
+ - write a real readme
+ - figure out venv
+ - put into docker image (use a nice base like bitnami)
+ - setup nginx with docker image 
+ - enable [multi process pool](https://www.sbert.net/examples/applications/computing-embeddings/README.html#sentence_transformers.SentenceTransformer.start_multi_process_pool)
+ - make asynch
+ - create tests (figure out a test framework)
+ - create pipelines for testing, deployment, dependabot
+ - watchtower to look for base image updates and auto rebuild
+ - auto merge dependabot if passing tests
+ - make image multi platform, including mac MX, arm6
 ### API
 - Flask web application: The rest of the code sets up a web application using Flask. This application has three endpoints:
 
@@ -85,3 +100,6 @@ embedding_model = EmbeddingModel(os.getenv('REPO_ID', 'sentence-transformers/all
 ```
 
 This serves as a practical way to modify behavior of the application without changing the source code, which might be beneficial in different environments (e.g. development, testing, production).
+
+### Licence
+MIT :P
