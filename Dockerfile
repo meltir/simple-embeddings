@@ -1,4 +1,13 @@
 FROM --platform=${BUILDPLATFORM} python:slim-buster
+
+LABEL org.opencontainers.image.source="https://github.com/meltir/simple-embeddings" \
+      org.opencontainers.image.version="0.0.1" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.description="Simple embedding endpoint" \
+      org.opencontainers.image.vendor="meltir" \
+      org.opencontainers.image.maintainers="spam@meltir.com" \
+      org.opencontainers.image.created="2024-02-18T00:00:00Z"
+
 LABEL authors="spam@meltir.com"
 LABEL maintainer="Lukasz Andrzejak"
 LABEL description="Simple embedding endpoint"
@@ -14,11 +23,12 @@ RUN mkdir -p /app/hf_cache \
 
 COPY . .
 
-RUN apt update \
-    && apt install -y cmake pkg-config build-essential
-RUN pip install torch --index-url https://download.pytorch.org/whl/cpu \
-    && pip install -r requirements.txt
+RUN pip install torch --index-url https://download.pytorch.org/whl/cpu
 
-RUN apt remove -y cmake pkg-config build-essential \
+RUN apt update \
+    && apt install -y cmake pkg-config build-essential \
+    && pip install -r requirements.txt \
+    && apt remove -y cmake pkg-config build-essential \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
